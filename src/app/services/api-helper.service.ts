@@ -55,7 +55,7 @@ export class ApiHelperService {
   }
 
   deleteUser(id: Number, token: string) {
-    const url = this.baseURL + '/users';
+    const url = this.baseURL + '/users/' + id;
     const headers = new Headers({'Content-Type': 'application/json'});
     headers.append('x-access-token', token);
     const options = new RequestOptions({headers: headers});
@@ -80,20 +80,11 @@ export class ApiHelperService {
     }
 
     const url = this.baseURL + '/users';
+
     const headers = new Headers({'Content-Type': 'application/json'});
-    /*headers.append('x-access-token', token);
-    headers.append('Access-Control-Allow-Origin', '*');
-    headers.append('Access-Control-Allow-Headers',
-    'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token, origin, cache-control');
-    headers.append('Access-Control-Allow-Methods', '*');
-    headers.append('Cache-Control', 'no-cache');*/
-
     headers.append('x-access-token', token);
-
-
-    //headers.append('Acces-Control-Request-Method', 'PUT');
-    //headers.append('Access-Control-Request-Headers', 'x-access-token');
     const options = new RequestOptions({headers: headers});
+
     const data = JSON.stringify(jsonObject);
     console.log(data, headers);
 

@@ -17,7 +17,10 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.apiHelperService.login('joonuska', 'RagnaxJIN7113').subscribe(
-      (resp) => console.log(resp)
+      (resp) => {
+        console.log(resp);
+        this.token = resp.token;
+      }
     );
   }
 
