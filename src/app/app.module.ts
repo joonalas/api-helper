@@ -1,3 +1,4 @@
+import { APIHelperService } from './services/api-helper.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +15,7 @@ import { AppComponent } from './app.component';
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [APIHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
