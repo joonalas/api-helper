@@ -25,9 +25,9 @@ export class AppComponent implements OnInit {
   }
 
   modUser() {
-    this.apiHelperService.modUser('joonuska', null, null, this.token).subscribe(
+    this.apiHelperService.modUser('joonuska', null, null, this.token)/*.subscribe(
       (resp) => console.log(resp)
-    );
+    )*/;
   }
 
 }

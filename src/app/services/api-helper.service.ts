@@ -12,6 +12,7 @@ Designed to ease communication with the wbma-server-node.
 export class ApiHelperService {
 
   private baseURL = 'http://media.mw.metropolia.fi/wbma';
+  private response = {};
 
   constructor(private http: Http) { }
 
@@ -69,15 +70,9 @@ export class ApiHelperService {
   modUser(username: string, password: string, email: string, token: string) {
     console.log(token);
     const jsonObject = {};
-    if (username) {
-      jsonObject['username'] = username;
-    }
-    if (password) {
-      jsonObject['password'] = password;
-    }
-    if (email) {
-      jsonObject['email'] = email;
-    }
+    if (username) { jsonObject['username'] = username; }
+    if (password) { jsonObject['password'] = password; }
+    if (email) { jsonObject['email'] = email; }
 
     const url = this.baseURL + '/users';
 
@@ -88,28 +83,25 @@ export class ApiHelperService {
     const data = JSON.stringify(jsonObject);
     console.log(data, headers);
 
-    return this.http.put(url, data, options).map(
+    this.extractData(this.http.put(url, data, options).map(
       resp => resp.json()
-    );
-  }
-
-  allowPUT(domain: string) {
-    const url = this.baseURL + domain;
-    const headers = new Headers({'Access-Control-Request-Method': 'PUT'});
-    headers.append('Access-Control-Request-Headers', 'x-access-token');
-    const options = new RequestOptions({headers: headers});
-
-    return this.http.options(url, options).map(
-      resp => resp.json()
-    );
+    ));
   }
 
   extractData(responseObservable: any) {
     let response: any;
     responseObservable.subscribe(
-      (resp) => response = resp
+      (resp) => {
+        console.log(resp);
+        for (let key in resp) {
+          if (resp.hasOwnProperty(key)) {
+            this.response[key] = resp[key];
+          }
+        }
+      }
     );
 
+    console.log(this.response);
     return response;
   }
 
