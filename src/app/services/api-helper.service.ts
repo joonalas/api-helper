@@ -18,8 +18,6 @@ export class ApiHelperService {
 
   // Authentication. Returns observable consisting of JSON objects.
   login(username: string, password: string) {
-    let responseObj: any;
-
     const url = this.baseURL + '/login';
     const headers = new Headers({'Content-Type': 'application/json'});
     const options = new RequestOptions({headers: headers});
@@ -30,16 +28,12 @@ export class ApiHelperService {
       }
     `;
 
-    responseObj = this.extractData(this.http.post(url, data, options)
+    return this.extractData(this.http.post(url, data, options)
     .map(
       /* Response is in JSON string form. Transform it to javascript object with
       json() function */
       resp => resp.json()
-        
     ));
-    
-    return responseObj;
-
   }
 
 
