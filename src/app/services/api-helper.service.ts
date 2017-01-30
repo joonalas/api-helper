@@ -9,7 +9,7 @@ Designed to ease communication with the wbma-server-node.
  */
 
 @Injectable()
-export class APIHelperService {
+export class ApiHelperService {
 
   private baseURL = 'http://media.mw.metropolia.fi/wbma';
 

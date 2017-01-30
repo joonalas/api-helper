@@ -1,5 +1,5 @@
 
-import { APIHelperService } from './services/api-helper.service';
+import { ApiHelperService } from './services/api-helper.service';
 import { Component, OnInit } from '@angular/core';
 
 
@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   title = 'API-helper service';
   private token: string;
 
-  constructor(private apiHelperService: APIHelperService) {}
+  constructor(private apiHelperService: ApiHelperService) {}
 
   ngOnInit() {
     this.apiHelperService.login('joonuska', 'RagnaxJIN7113').subscribe(
