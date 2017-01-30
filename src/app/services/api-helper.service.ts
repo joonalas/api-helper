@@ -18,7 +18,7 @@ export class ApiHelperService {
 
   // Authentication. Returns observable consisting of JSON objects.
   login(username: string, password: string) {
-    let responseArray: any[];
+    let responseObj: any;
 
     const url = this.baseURL + '/login';
     const headers = new Headers({'Content-Type': 'application/json'});
@@ -30,14 +30,15 @@ export class ApiHelperService {
       }
     `;
 
-    responseArray = this.extractData(this.http.post(url, data, options)
+    responseObj = this.extractData(this.http.post(url, data, options)
     .map(
       /* Response is in JSON string form. Transform it to javascript object with
       json() function */
       resp => resp.json()
+        
     ));
-
-    return responseArray;
+    
+    return responseObj;
 
   }
 
@@ -97,7 +98,7 @@ export class ApiHelperService {
 main-body object. */
   extractData(responseObservable: any) {
     let responseObj = {};
-    let objectsInsideResp: any[] = [];
+    let objectsInsideResp = {};
     responseObservable.subscribe(
       (resp) => {
 
