@@ -66,6 +66,8 @@ export class APIHelperService {
   }
 
   modUser(username: string, password: string, email: string, token: string) {
+
+
     console.log(token);
     const jsonObject = {};
     if (username) {
@@ -80,19 +82,45 @@ export class APIHelperService {
 
     const url = this.baseURL + '/users';
     const headers = new Headers({'Content-Type': 'application/json'});
-    headers.append('x-access-token', token);
-    //headers.append('Access-Control-Allow-Origin', '*');
+    /*headers.append('x-access-token', token);
+    headers.append('Access-Control-Allow-Origin', '*');
     headers.append('Access-Control-Allow-Headers',
     'accept, content-type, x-parse-application-id, x-parse-rest-api-key, x-parse-session-token, origin, cache-control');
     headers.append('Access-Control-Allow-Methods', '*');
-    //headers.append('Cache-Control', 'no-cache');
+    headers.append('Cache-Control', 'no-cache');*/
+
+    headers.append('x-access-token', token);
+
+
+    //headers.append('Acces-Control-Request-Method', 'PUT');
+    //headers.append('Access-Control-Request-Headers', 'x-access-token');
     const options = new RequestOptions({headers: headers});
     const data = JSON.stringify(jsonObject);
     console.log(data, headers);
 
-    return this.http.post(url, data, options).map(
+    return this.http.put(url, data, options).map(
       resp => resp.json()
     );
+  }
+
+  allowPUT(domain: string) {
+    const url = this.baseURL + domain;
+    const headers = new Headers({'Access-Control-Request-Method': 'PUT'});
+    headers.append('Access-Control-Request-Headers', 'x-access-token');
+    const options = new RequestOptions({headers: headers});
+
+    return this.http.options(url, options).map(
+      resp => resp.json()
+    );
+  }
+
+  extractData(responseObservable: any) {
+    let response: any;
+    responseObservable.subscribe(
+      (resp) => response = resp
+    );
+
+    return response;
   }
 
 }
