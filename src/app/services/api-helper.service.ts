@@ -65,9 +65,8 @@ export class ApiHelperService {
     );
   }
 
+
   modUser(username: string, password: string, email: string, token: string) {
-
-
     console.log(token);
     const jsonObject = {};
     if (username) {
