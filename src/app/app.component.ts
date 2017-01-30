@@ -16,12 +16,7 @@ export class AppComponent implements OnInit {
   constructor(private apiHelperService: ApiHelperService) {}
 
   ngOnInit() {
-    this.apiHelperService.login('joonuska', 'RagnaxJIN7113').subscribe(
-      (resp) => {
-        console.log(resp);
-        this.token = resp.token;
-      }
-    );
+    this.apiHelperService.login('joonuska', 'RagnaxJIN7113');
   }
 
   modUser() {

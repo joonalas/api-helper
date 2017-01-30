@@ -12,13 +12,14 @@ Designed to ease communication with the wbma-server-node.
 export class ApiHelperService {
 
   private baseURL = 'http://media.mw.metropolia.fi/wbma';
-  private response = {};
 
   constructor(private http: Http) { }
 
 
   // Authentication. Returns observable consisting of JSON objects.
   login(username: string, password: string) {
+    let responseArray: any[];
+
     const url = this.baseURL + '/login';
     const headers = new Headers({'Content-Type': 'application/json'});
     const options = new RequestOptions({headers: headers});
@@ -29,11 +30,15 @@ export class ApiHelperService {
       }
     `;
 
-    return this.http.post(url, data, options).map(
+    responseArray = this.extractData(this.http.post(url, data, options)
+    .map(
       /* Response is in JSON string form. Transform it to javascript object with
       json() function */
       resp => resp.json()
-    );
+    ));
+
+    return responseArray;
+
   }
 
 
@@ -88,21 +93,32 @@ export class ApiHelperService {
     ));
   }
 
+/* Returns all objects inside the response as an array. Other properties are combined into 
+main-body object. */
   extractData(responseObservable: any) {
-    let response: any;
+    let responseObj = {};
+    let objectsInsideResp: any[] = [];
     responseObservable.subscribe(
       (resp) => {
-        console.log(resp);
+
         for (let key in resp) {
           if (resp.hasOwnProperty(key)) {
-            this.response[key] = resp[key];
+            if (!this.isObject(resp[key])) {
+              responseObj[key] = resp[key];
+            } else { objectsInsideResp[key] = resp[key]; }
           }
         }
       }
     );
 
-    console.log(this.response);
-    return response;
+    objectsInsideResp['main-body'] = responseObj;
+    console.log(objectsInsideResp);
+    return objectsInsideResp;
+  }
+
+  isObject(val) {
+    if (val === null) { return false;}
+    return ( (typeof val === 'function') || (typeof val === 'object') );
   }
 
 }
