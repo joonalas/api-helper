@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
 
   test() {
     console.log('On the test function:');
-    this.apiHelperService.deleteFile(23, this.token).subscribe(
+    this.apiHelperService.getUserMedia(3).subscribe(
       resp => console.log(resp.json())
     );
   }
