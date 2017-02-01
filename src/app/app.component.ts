@@ -11,18 +11,26 @@ import { Component, OnInit } from '@angular/core';
 
 export class AppComponent implements OnInit {
   title = 'API-helper service';
-  private token: string;
+  private user: any;
 
   constructor(private apiHelperService: ApiHelperService) {}
 
   ngOnInit() {
-    console.log(this.apiHelperService.login('joonuska', 'RagnaxJIN7113'));
+    this.apiHelperService.login({
+      username: 'joonuska',
+      password: 'RagnaxJIN7113'
+    }
+    ).subscribe(
+      resp => {
+        const json = resp.json();
+        console.log(json.user);
+        this.user = json.user;
+      }
+    );
   }
 
-  modUser() {
-    this.apiHelperService.modUser('joonuska', null, null, this.token)/*.subscribe(
-      (resp) => console.log(resp)
-    )*/;
+  test() {
+    console.log('On the test function:');
   }
 
 }
