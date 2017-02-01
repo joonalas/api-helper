@@ -36,7 +36,7 @@ export class ApiHelperService {
       json() function */
       resp => resp.json()
     ));
-    
+
   }
 
 
@@ -94,14 +94,15 @@ export class ApiHelperService {
 /* Returns all objects inside the response as an array. Other properties are combined into 
 main-body object. */
   extractData(responseObservable: any) {
-    let responseObj = {};
-    let objectsInsideResp = {};
+    const responseObj = {};
+    const objectsInsideResp = {};
     responseObservable.subscribe(
       (resp) => {
 
-        for (let key in resp) {
+        for (let key in Object.keys(resp)) {
           if (resp.hasOwnProperty(key)) {
             if (!this.isObject(resp[key])) {
+              console.log(key);
               responseObj[key] = resp[key];
             } else { objectsInsideResp[key] = resp[key]; }
           }
@@ -115,7 +116,7 @@ main-body object. */
   }
 
   isObject(val) {
-    if (val === null) { return false;}
+    if (val === null) { return false; }
     return ( (typeof val === 'function') || (typeof val === 'object') );
   }
 
