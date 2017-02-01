@@ -120,4 +120,42 @@ export class ApiHelperService {
     return this.http.get(url, options);
   }
 
+/*  getMedia: any = (start?, limit?) => {
+    const url = this.baseUrl + 'media';
+    if ()
+    const options = this.headerBuilder();
+    console.log(options);
+    return this.http.get(url, options);
+  }
+
+
+
+
+
+
+
+  urlBuilder: any = (pathArray?, params?) => {
+    let url;
+    let filePath = '';
+    let query = '?';
+    if (pathArray) {
+      for (const x of pathArray) {
+        filePath += '/' + x;
+      }
+      url = this.baseUrl + filePath;
+    }
+    if (params) {
+      for (const key of Object.keys(params)) {
+        query += key + '=' + params[key];
+      }
+    }
+  }
+
+
+
+
+
+
+*/
+
 }
