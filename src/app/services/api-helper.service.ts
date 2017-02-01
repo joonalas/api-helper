@@ -48,6 +48,7 @@ export class ApiHelperService {
     return this.http.post(url, body, options);
   }
 
+/* USER */
   signup: any = (data) => {
     const url = this.baseUrl + 'users/';
     const options = this.headerBuilder();
@@ -81,6 +82,14 @@ export class ApiHelperService {
   getCurrentUser: any = (token: any) => {
     const url = this.baseUrl + 'users/user/';
     const options = this.headerBuilder('', token);
+    console.log(options);
+    return this.http.get(url, options);
+  }
+
+  /* MEDIA */
+  getFile: any = (id: any) => {
+    const url = this.baseUrl + 'media/' + id;
+    const options = this.headerBuilder();
     console.log(options);
     return this.http.get(url, options);
   }

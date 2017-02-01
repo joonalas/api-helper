@@ -31,6 +31,9 @@ export class AppComponent implements OnInit {
 
   test() {
     console.log('On the test function:');
+    this.apiHelperService.getFile(28).subscribe(
+      resp => console.log(resp.json())
+    );
   }
 
 }
