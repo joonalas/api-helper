@@ -12,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'API-helper service';
   private user: any;
+  private token: any;
 
   constructor(private apiHelperService: ApiHelperService) {}
 
@@ -25,13 +26,14 @@ export class AppComponent implements OnInit {
         const json = resp.json();
         console.log(json.user);
         this.user = json.user;
+        this.token = json.token;
       }
     );
   }
 
   test() {
     console.log('On the test function:');
-    this.apiHelperService.getFile(28).subscribe(
+    this.apiHelperService.deleteFile(23, this.token).subscribe(
       resp => console.log(resp.json())
     );
   }

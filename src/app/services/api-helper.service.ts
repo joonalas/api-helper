@@ -94,4 +94,11 @@ export class ApiHelperService {
     return this.http.get(url, options);
   }
 
+  deleteFile: any = (id: any, token: any) => {
+    const url = this.baseUrl + 'media/' + id;
+    const options = this.headerBuilder('', token);
+    console.log(options);
+    return this.http.delete(url, options);
+  }
+
 }
