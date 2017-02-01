@@ -101,7 +101,7 @@ export class ApiHelperService {
     return this.http.delete(url, options);
   }
 
-  getUserMedia: any = (id: any, token?) => {
+  getUserMediaById: any = (id: any, token?) => {
     const url = this.baseUrl + 'media/user/' + id;
     let options;
     if (token) {
@@ -109,6 +109,13 @@ export class ApiHelperService {
     } else {
       options = this.headerBuilder();
     }
+    console.log(options);
+    return this.http.get(url, options);
+  }
+
+  getUserMedia: any = (token: any) => {
+    const url = this.baseUrl + 'media/user';
+    const options = this.headerBuilder('', token);
     console.log(options);
     return this.http.get(url, options);
   }

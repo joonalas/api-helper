@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
 
   test() {
     console.log('On the test function:');
-    this.apiHelperService.getUserMedia(3).subscribe(
+    this.apiHelperService.getUserMedia(this.token).subscribe(
       resp => console.log(resp.json())
     );
   }
