@@ -121,8 +121,11 @@ export class ApiHelperService {
   }
 
   getMedia: any = (start?, limit?) => {
+    const params = {};
+    if (start) { params['start'] = start; }
+    if (limit) { params['limit'] = limit; }
     console.log(
-      this.urlBuilder(['media', 'user'], [{key: 'start', value: 10}, {key: 'limit', value: 30}])
+      //this.urlBuilder(['media'], params)
     );
   }
 
@@ -132,10 +135,10 @@ export class ApiHelperService {
 
 
 
-  urlBuilder: any = (pathArray?, paramsArray?) => {
+ /* urlBuilder: any = (pathArray?, paramsArray?) => {
     let url = this.baseUrl;
     let filePath = '';
-    let query = '?';
+    let query = '';
     if (pathArray) {
       for (const x of pathArray) {
         filePath += '/' + x;
@@ -143,9 +146,11 @@ export class ApiHelperService {
       url += filePath;
     }
     if (paramsArray) {
+      query = $httpParamSerializer(paramsArray);
+      /*
       for (const param of paramsArray) {
         if (paramsArray.indexOf(param) === 0) {
-          query += param.key + '=' + param.value;
+          query += '?' + param.key + '=' + param.value;
         } else {
           query += '&' + param.key + '=' + param.value;
         }
@@ -154,7 +159,7 @@ export class ApiHelperService {
     }
 
     return url;
-  }
+  }*/
 
 
 

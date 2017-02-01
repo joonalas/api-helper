@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
     this.apiHelperService.getUserMedia(this.token).subscribe(
       resp => console.log(resp.json())
     );*/
-    this.apiHelperService.getMedia();
+    this.apiHelperService.getMedia(10, 30);
   }
 
 }
