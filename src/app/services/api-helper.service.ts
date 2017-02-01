@@ -12,7 +12,7 @@ Designed to ease communication with the wbma-server-node.
 export class ApiHelperService {
 
 
-  private baseUrl: any = 'http://media.mw.metropolia.fi/wbma/';
+  private baseUrl: any = 'http://media.mw.metropolia.fi/wbma';
   private headers: Headers;
   private options: RequestOptions;
   private body: any;
@@ -35,13 +35,13 @@ export class ApiHelperService {
   }
 
   checkName: any = (username: any) => {
-    const url = this.baseUrl + 'users/username/' + username;
+    const url = this.baseUrl + '/users/username/' + username;
     const options = this.headerBuilder();
     return this.http.get(url, options);
   }
 
   login: any = (data) => {
-    const url = this.baseUrl + 'login/';
+    const url = this.baseUrl + '/login/';
     const options = this.headerBuilder();
     const body = JSON.stringify(data);
     console.log(body);
@@ -50,7 +50,7 @@ export class ApiHelperService {
 
 /* USER */
   signup: any = (data) => {
-    const url = this.baseUrl + 'users/';
+    const url = this.baseUrl + '/users/';
     const options = this.headerBuilder();
     const body = JSON.stringify(data);
     console.log(body);
@@ -58,7 +58,7 @@ export class ApiHelperService {
   }
 
   modifyUser: any = (data, token: any) => {
-    const url = this.baseUrl + 'users/';
+    const url = this.baseUrl + '/users/';
     const options = this.headerBuilder('', token);
     const body = JSON.stringify(data);
     console.log(body);
@@ -66,21 +66,21 @@ export class ApiHelperService {
   }
 
   getUser: any = (id: any, token: any) => {
-    const url = this.baseUrl + 'users/' + id;
+    const url = this.baseUrl + '/users/' + id;
     const options = this.headerBuilder('', token);
     console.log(options);
     return this.http.get(url, options);
   }
 
   getAllUsers: any = (token: any) => {
-    const url = this.baseUrl + 'users/';
+    const url = this.baseUrl + '/users/';
     const options = this.headerBuilder('', token);
     console.log(options);
     return this.http.get(url, options);
   }
 
   getCurrentUser: any = (token: any) => {
-    const url = this.baseUrl + 'users/user/';
+    const url = this.baseUrl + '/users/user/';
     const options = this.headerBuilder('', token);
     console.log(options);
     return this.http.get(url, options);
@@ -88,21 +88,21 @@ export class ApiHelperService {
 
   /* MEDIA */
   getFile: any = (id: any) => {
-    const url = this.baseUrl + 'media/' + id;
+    const url = this.baseUrl + '/media/' + id;
     const options = this.headerBuilder();
     console.log(options);
     return this.http.get(url, options);
   }
 
   deleteFile: any = (id: any, token: any) => {
-    const url = this.baseUrl + 'media/' + id;
+    const url = this.baseUrl + '/media/' + id;
     const options = this.headerBuilder('', token);
     console.log(options);
     return this.http.delete(url, options);
   }
 
   getUserMediaById: any = (id: any, token?) => {
-    const url = this.baseUrl + 'media/user/' + id;
+    const url = this.baseUrl + '/media/user/' + id;
     let options;
     if (token) {
       options = this.headerBuilder('', token);
@@ -114,18 +114,16 @@ export class ApiHelperService {
   }
 
   getUserMedia: any = (token: any) => {
-    const url = this.baseUrl + 'media/user';
+    const url = this.baseUrl + '/media/user';
     const options = this.headerBuilder('', token);
     console.log(options);
     return this.http.get(url, options);
   }
 
-/*  getMedia: any = (start?, limit?) => {
-    const url = this.baseUrl + 'media';
-    if ()
-    const options = this.headerBuilder();
-    console.log(options);
-    return this.http.get(url, options);
+  getMedia: any = (start?, limit?) => {
+    console.log(
+      this.urlBuilder(['media', 'user'], [{key: 'start', value: 10}, {key: 'limit', value: 30}])
+    );
   }
 
 
@@ -134,21 +132,28 @@ export class ApiHelperService {
 
 
 
-  urlBuilder: any = (pathArray?, params?) => {
-    let url;
+  urlBuilder: any = (pathArray?, paramsArray?) => {
+    let url = this.baseUrl;
     let filePath = '';
     let query = '?';
     if (pathArray) {
       for (const x of pathArray) {
         filePath += '/' + x;
       }
-      url = this.baseUrl + filePath;
+      url += filePath;
     }
-    if (params) {
-      for (const key of Object.keys(params)) {
-        query += key + '=' + params[key];
+    if (paramsArray) {
+      for (const param of paramsArray) {
+        if (paramsArray.indexOf(param) === 0) {
+          query += param.key + '=' + param.value;
+        } else {
+          query += '&' + param.key + '=' + param.value;
+        }
       }
+      url += query;
     }
+
+    return url;
   }
 
 
@@ -156,6 +161,6 @@ export class ApiHelperService {
 
 
 
-*/
+
 
 }
